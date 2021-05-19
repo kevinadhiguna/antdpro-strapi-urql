@@ -17,7 +17,7 @@ yarn-error.log
 
 /coverage
 .idea
-# yarn.lock     # <- Adding 'yarn.lock' for CI/CD 
+# yarn.lock                 # <- Adding 'yarn.lock' for CI/CD 
 package-lock.json
 *bak
 .vscode
@@ -38,3 +38,6 @@ screenshot
 .eslintcache
 
 build
+
+# application configuration
+src/appConfig.json
