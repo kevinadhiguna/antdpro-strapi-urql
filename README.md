@@ -1,5 +1,7 @@
 # Ant Design Pro x Urql x Strapi
 
+Ant Design Pro v5 boilerplate powered by Strapi GraphQL API and Urql GraphQL client 🌟
+
 Follow is the quick guide for how to use.
 
 ## Environment Prepare
