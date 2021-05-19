@@ -47,3 +47,5 @@ yarn lint:fix
 ```bash
 yarn test
 ```
+
+[![Visits Badge](https://badges.pufler.dev/visits/kevinadhiguna/antdpro-urql-strapi)](https://github.com/kevinadhiguna)
