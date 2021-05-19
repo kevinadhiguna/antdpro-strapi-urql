@@ -10,7 +10,9 @@ import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
-import { createClient, Provider } from 'urql';
+import { createClient, Provider, dedupExchange, cacheExchange } from 'urql';
+import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
+
 import appConfig from './appConfig.json';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -139,6 +141,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 // Setting up the Client
 const client = createClient({
   url: appConfig.graphqlUri,
+  exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
   fetchOptions: () => {
     // Get JSON Web Token from local storage
     const token = localStorage.getItem('jwt');
