@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
@@ -9,7 +10,7 @@ import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
-import { createClient } from 'urql';
+import { createClient, Provider } from 'urql';
 import appConfig from './appConfig.json';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -150,3 +151,8 @@ const client = createClient({
     }
   }
 });
+
+// Providing the Client
+export function rootContainer(container: React.Component) {
+  return <Provider value={client}>{container}</Provider>
+}
