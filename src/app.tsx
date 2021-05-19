@@ -142,17 +142,17 @@ const client = createClient({
   fetchOptions: () => {
     // Get JSON Web Token from local storage
     const token = localStorage.getItem('jwt');
-    
+
     return {
       // Attach JSON Web Token to headers
       headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    }
-  }
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  },
 });
 
 // Providing the Client
 export function rootContainer(container: React.Component) {
-  return <Provider value={client}>{container}</Provider>
+  return <Provider value={client}>{container}</Provider>;
 }
