@@ -9,6 +9,9 @@ import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
+import { createClient } from 'urql';
+import appConfig from './appConfig.json';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -131,3 +134,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     ...initialState?.settings,
   };
 };
+
+// Setting up the Client
+const client = createClient({
+  url: appConfig.graphqlUri,
+});
