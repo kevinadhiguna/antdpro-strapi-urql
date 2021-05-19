@@ -138,4 +138,15 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 // Setting up the Client
 const client = createClient({
   url: appConfig.graphqlUri,
+  fetchOptions: () => {
+    // Get JSON Web Token from local storage
+    const token = localStorage.getItem('jwt');
+    
+    return {
+      // Attach JSON Web Token to headers
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    }
+  }
 });
