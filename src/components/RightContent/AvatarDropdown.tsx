@@ -7,6 +7,12 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 import { outLogin } from '@/services/ant-design-pro/api';
 
+// Import GraphQL USER Query
+import { USER } from '@/graphql/query'; // <- Do not forget to import inside brackets {}
+
+// Import useQuery hook from Apollo Client
+import { useQuery } from 'urql';
+
 export type GlobalHeaderRightProps = {
   menu?: boolean;
 };
@@ -50,7 +56,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     [initialState, setInitialState],
   );
 
-  const loading = (
+  // Rename 'loading' to 'loadingSpin' to avoid confusion with useQuery hook's 'loading' property
+  const loadingSpin = (
     <span className={`${styles.action} ${styles.account}`}>
       <Spin
         size="small"
@@ -63,14 +70,10 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   );
 
   if (!initialState) {
-    return loading;
+    return loadingSpin;
   }
 
   const { currentUser } = initialState;
-
-  if (!currentUser || !currentUser.name) {
-    return loading;
-  }
 
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
@@ -94,11 +97,38 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       </Menu.Item>
     </Menu>
   );
+
+  // Get user ID from local storage
+  const id = localStorage.getItem('id');
+
+  const [result] = useQuery({
+    query: USER,
+    variables: { id },
+  });
+
+  // Get username from local storage
+  const username = localStorage.getItem('username');
+
+  // == No longer used, please use the logic below to return username and profile picture of user ==
+  // if (!currentUser || !currentUser.name) {
+  //   return loadingSpin;
+  // }
+
+  // == Return loadingSpin component only if either username or Profile Picture URL is false ==
+  if (!username || !result.data.user.profpic.url) {
+    return loadingSpin;
+  }
+
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+      <Avatar
+          size="small"
+          className={styles.avatar}
+          src={result.data.user.profpic.url}
+          alt="avatar"
+        />
+        <span className={`${styles.name} anticon`}>{username}</span>
       </span>
     </HeaderDropdown>
   );
