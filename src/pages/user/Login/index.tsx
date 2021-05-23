@@ -35,7 +35,7 @@ const LoginMessage: React.FC<{
   />
 );
 
-/** 此方法会跳转到 redirect 参数所在的位置 */
+/** This method will jump to the location of the redirect parameter. */
 const goto = () => {
   if (!history) return;
   setTimeout(() => {
