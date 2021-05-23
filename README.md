@@ -21,6 +21,11 @@ Install `node_modules`:
 ```bash
 yarn
 ```
+or
+
+```bash
+yarn install
+```
 
 ## Prepare Application Configuration
 
