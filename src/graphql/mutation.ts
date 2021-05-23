@@ -1,4 +1,4 @@
-// GraphQL Login mutation
+// LOGIN mutation
 export const LOGIN = `
   mutation Login($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
