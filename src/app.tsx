@@ -33,14 +33,25 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const currentUser = await queryCurrentUser();
-      return currentUser;
+      // const currentUser = await queryCurrentUser();
+      // return currentUser;
+
+      const userId = localStorage.getItem('id');
+
+      if (userId == null) {
+        return undefined;
+      } else {
+        let currentUser: API.CurrentUser = { userid: userId };
+        return currentUser;
+      }
     } catch (error) {
+      console.info('Current User is undefined :', error);
       history.push(loginPath);
     }
     return undefined;
   };
-  // 如果是登录页面，不执行
+
+  // If it is a login page, do not execute
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
     return {
