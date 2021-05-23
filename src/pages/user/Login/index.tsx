@@ -68,7 +68,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     setSubmitting(true);
     try {
-      // 登录
+      // == Original Ant Design Pro Login functionality code ==
       // const msg = await loginAntdPro({ ...values, type });
       // if (msg.status === 'ok') {
       //   const defaultloginSuccessMessage = intl.formatMessage({
@@ -80,7 +80,8 @@ const Login: React.FC = () => {
       //   goto();
       //   return;
       // }
-      // 如果失败去设置用户错误信息
+
+      // == If it fails to set user error message ==
       // setUserLoginState(msg);
 
       // Clear local storage first
@@ -93,7 +94,6 @@ const Login: React.FC = () => {
       //     password: values.password,
       //   },
       // }
-
       // await login(variables);
 
       // == Login: 2nd way ==
