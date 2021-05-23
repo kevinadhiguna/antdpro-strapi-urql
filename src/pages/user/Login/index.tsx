@@ -124,7 +124,7 @@ const Login: React.FC = () => {
         console.info('After push, you are on :', location.pathname);
         return;
       } else {
-        console.error('An Apollo client error happened :', loginResult.error);
+        console.error('A URQL client error happened :', loginResult.error);
       }
     } catch (error) {
       const defaultloginFailureMessage = intl.formatMessage({
