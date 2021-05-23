@@ -58,6 +58,7 @@
     "antd": "^4.14.0",
     "classnames": "^2.2.6",
     "graphql": "^15.5.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",
     "omit.js": "^2.0.2",
