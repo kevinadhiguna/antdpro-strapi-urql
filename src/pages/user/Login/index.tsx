@@ -11,7 +11,7 @@ import { Alert, Space, message, Tabs } from 'antd';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
+import { loginAntdPro } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 
 import styles from './index.less';
@@ -69,7 +69,7 @@ const Login: React.FC = () => {
     setSubmitting(true);
     try {
       // 登录
-      const msg = await login({ ...values, type });
+      const msg = await loginAntdPro({ ...values, type });
       if (msg.status === 'ok') {
         const defaultloginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
