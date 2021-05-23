@@ -52,7 +52,7 @@ const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const [loginResult, login] = useMutation(LOGIN);
-  
+
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
@@ -101,9 +101,9 @@ const Login: React.FC = () => {
         variables: {
           input: {
             identifier: values.username,
-            password: values.password, 
-          }
-        }
+            password: values.password,
+          },
+        },
       });
 
       // Store data to local storage unless an error occurs

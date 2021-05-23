@@ -128,7 +128,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      
+
       // If not logged in, redirect to login screen
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);
