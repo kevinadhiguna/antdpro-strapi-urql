@@ -13,7 +13,7 @@ const Settings: LayoutSettings & {
   fixSiderbar: true,
   colorWeak: false,
   title: 'AntdPro Strapi Urql',
-  pwa: false,
+  pwa: true,
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
 };
