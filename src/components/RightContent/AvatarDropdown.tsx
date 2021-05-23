@@ -10,7 +10,7 @@ import { outLogin } from '@/services/ant-design-pro/api';
 // Import GraphQL USER Query
 import { USER } from '@/graphql/query'; // <- Do not forget to import inside brackets {}
 
-// Import useQuery hook from Apollo Client
+// Import useQuery hook from Urql
 import { useQuery } from 'urql';
 
 export type GlobalHeaderRightProps = {
