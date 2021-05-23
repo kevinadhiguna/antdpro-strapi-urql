@@ -15,6 +15,9 @@ import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 
 import appConfig from './appConfig.json';
 
+import jwt_decode, { JwtPayload } from 'jwt-decode';
+import Swal from 'sweetalert2';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
