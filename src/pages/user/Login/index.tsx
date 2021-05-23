@@ -69,19 +69,63 @@ const Login: React.FC = () => {
     setSubmitting(true);
     try {
       // 登录
-      const msg = await loginAntdPro({ ...values, type });
-      if (msg.status === 'ok') {
-        const defaultloginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: '登录成功！',
-        });
-        message.success(defaultloginSuccessMessage);
-        await fetchUserInfo();
-        goto();
-        return;
-      }
+      // const msg = await loginAntdPro({ ...values, type });
+      // if (msg.status === 'ok') {
+      //   const defaultloginSuccessMessage = intl.formatMessage({
+      //     id: 'pages.login.success',
+      //     defaultMessage: '登录成功！',
+      //   });
+      //   message.success(defaultloginSuccessMessage);
+      //   await fetchUserInfo();
+      //   goto();
+      //   return;
+      // }
       // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+      // setUserLoginState(msg);
+
+      // Clear local storage first
+      localStorage.clear();
+
+      // == Login: 1st way ==
+      // const variables = {
+      //   input: {
+      //     identifier: values.username,
+      //     password: values.password,
+      //   },
+      // }
+
+      // await login(variables);
+
+      // == Login: 2nd way ==
+      await login({
+        variables: {
+          input: {
+            identifier: values.username,
+            password: values.password, 
+          }
+        }
+      });
+
+      // Store data to local storage unless an error occurs
+      if (!loginResult.error) {
+        localStorage.setItem('jwt', loginResult.data.login.jwt);
+        localStorage.setItem('id', loginResult.data.login.user.id);
+        localStorage.setItem('username', loginResult.data.login.user.username);
+        localStorage.setItem('email', loginResult.data.login.user.email);
+        localStorage.setItem('confirmed', loginResult.data.login.user.confirmed);
+        localStorage.setItem('blocked', loginResult.data.login.user.blocked);
+        localStorage.setItem('role-id', loginResult.data.login.user.role.id);
+        localStorage.setItem('role-name', loginResult.data.login.user.role.name);
+        localStorage.setItem('role-description', loginResult.data.login.user.role.description);
+        localStorage.setItem('role-type', loginResult.data.login.user.role.type);
+        console.info('Data has been saved in localstorage !');
+        console.info('You are on :', location.pathname);
+        history.push('/');
+        console.info('After push, you are on :', location.pathname);
+        return;
+      } else {
+        console.error('An Apollo client error happened :', loginResult.error);
+      }
     } catch (error) {
       const defaultloginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
