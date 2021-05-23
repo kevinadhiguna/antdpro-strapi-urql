@@ -51,7 +51,7 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
 
-  const [loginResult, signIn] = useMutation(LOGIN);
+  const [loginResult, login] = useMutation(LOGIN);
   
   const intl = useIntl();
 
