@@ -74,8 +74,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     return loadingSpin;
   }
 
-  // const { currentUser } = initialState;
-
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
       {menu && (
@@ -116,11 +114,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   
   // Get username from local storage
   const username = localStorage.getItem('username');
-
-  // == No longer used, please use the logic below to return username and profile picture of user ==
-  // if (!currentUser || !currentUser.name) {
-  //   return loadingSpin;
-  // }
 
   // Return loadingSpin component only if either username or Profile Picture URL is false
   if (!username || !data.user.profpic.url) {

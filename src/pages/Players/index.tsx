@@ -40,10 +40,6 @@ const Players = () => {
       />
     );
   }
-  
-  console.log("Juventus query result = ", juventusResult);
-
-  console.log("JuventusResult.data = ", data);
 
   let size = Object.keys(data.juventuses).length;
 

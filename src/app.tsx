@@ -36,8 +36,6 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      // const currentUser = await queryCurrentUser();
-      // return currentUser;
 
       const userId = localStorage.getItem('id');
 
@@ -91,6 +89,7 @@ export async function getInitialState(): Promise<{
  };
  * @see https://beta-pro.ant.design/docs/request-cn
  */
+
 export const request: RequestConfig = {
   errorHandler: (error: ResponseError) => {
     const { messages } = getIntl(getLocale());
@@ -128,11 +127,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-
-      // If not logged in, redirect to login screen
-      // if (!initialState?.currentUser && location.pathname !== loginPath) {
-      //   history.push(loginPath);
-      // }
 
       const jwt = localStorage.getItem('jwt');
 
