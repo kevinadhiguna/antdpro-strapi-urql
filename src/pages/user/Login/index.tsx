@@ -152,7 +152,7 @@ const Login: React.FC = () => {
               handleSubmit(values as API.LoginParams);
             }}
           >
-            <Tabs activeKey={type} onChange={setType}>
+            {/* <Tabs activeKey={type} onChange={setType}>
               <Tabs.TabPane
                 key="account"
                 tab={intl.formatMessage({
@@ -167,7 +167,7 @@ const Login: React.FC = () => {
                   defaultMessage: '手机号登录',
                 })}
               />
-            </Tabs>
+            </Tabs> */}
 
             {status === 'error' && loginType === 'account' && (
               <LoginMessage
@@ -227,7 +227,7 @@ const Login: React.FC = () => {
             )}
 
             {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
-            {type === 'mobile' && (
+            {/* {type === 'mobile' && (
               <>
                 <ProFormText
                   fieldProps={{
@@ -307,7 +307,7 @@ const Login: React.FC = () => {
                   }}
                 />
               </>
-            )}
+            )} */}
             <div
               style={{
                 marginBottom: 24,
