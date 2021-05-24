@@ -1,5 +1,7 @@
+import { gql } from '@urql/core';
+
 // USERS query to get all users
-export const USERS = `
+export const USERS = gql`
   query getUsers {
     users {
       id
@@ -18,7 +20,7 @@ export const USERS = `
 `;
 
 // USER query to get current user info
-export const USER = `
+export const USER = gql`
   query User($id: ID!) {
     user(id: $id) {
       id
@@ -44,7 +46,7 @@ export const USER = `
 `;
 
 // JUVENTUS query to get all data in Juventus collection-type
-export const JUVENTUS = `
+export const JUVENTUS = gql`
   query getJuventusPlayers {
     juventuses {
       id

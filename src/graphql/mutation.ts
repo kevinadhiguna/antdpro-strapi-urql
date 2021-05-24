@@ -1,5 +1,7 @@
+import { gql } from '@urql/core';
+
 // LOGIN mutation
-export const LOGIN = `
+export const LOGIN = gql`
   mutation Login($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
       jwt
