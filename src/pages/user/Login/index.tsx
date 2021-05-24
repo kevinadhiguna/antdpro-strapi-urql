@@ -64,8 +64,6 @@ const Login: React.FC = () => {
   };
 
   const [loginResult, login] = useMutation(LOGIN);
-
-  const { data, error } = loginResult;
   
   const handleSubmit = async (values: API.LoginParams) => {
     setSubmitting(true);
@@ -73,17 +71,8 @@ const Login: React.FC = () => {
       // Clear local storage first
       localStorage.clear();
 
-      // == Login: 1st way ==
-      // const variables = {
-      //   input: {
-      //     identifier: values.username,
-      //     password: values.password,
-      //   },
-      // }
-      // await login(variables);
-
-      // == Login: 2nd way ==
-      await login({
+      // Login
+      const { data, error } = await login({
         input: {
           identifier: values.username,
           password: values.password,
