@@ -16,27 +16,31 @@ export type TableListItem = {
   position: string;
 };
 
-const PlayerList = () => {
-  const [result] = useQuery({
+const Players = () => {
+  const [juventusResult] = useQuery({
     query: JUVENTUS
   });
 
-  let size = Object.keys(result.data.juventuses).length;
+  const { data } = juventusResult;
+
+  console.log("Juventus query result :", data);
+
+  let size = Object.keys(data.juventuses).length;
 
   let dataArray: TableListItem[] = [];
 
   for (let i = 0; i < size; i++) {
     dataArray.push({
       key: i,
-      name: result.data.juventuses[i].name,
-      avatar: result.data.juventuses[i].profpic.url,
-      number: result.data.juventuses[i].number,
-      age: result.data.juventuses[i].age,
-      country: result.data.juventuses[i].country,
-      appearences: result.data.juventuses[i].appearences,
-      goals: result.data.juventuses[i].goals,
-      minutesPlayed: result.data.juventuses[i].minutesPlayed,
-      position: result.data.juventuses[i].position,
+      name: data.juventuses[i].name,
+      avatar: data.juventuses[i].profpic.url,
+      number: data.juventuses[i].number,
+      age: data.juventuses[i].age,
+      country: data.juventuses[i].country,
+      appearences: data.juventuses[i].appearences,
+      goals: data.juventuses[i].goals,
+      minutesPlayed: data.juventuses[i].minutesPlayed,
+      position: data.juventuses[i].position,
     });
   }
 
@@ -99,4 +103,4 @@ const PlayerList = () => {
   return <Table dataSource={dataArray} columns={columns} />;
 };
 
-export default PlayerList;
+export default Players;
