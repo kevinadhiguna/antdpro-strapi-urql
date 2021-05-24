@@ -49,6 +49,12 @@
     component: './Players',
   },
   {
+    name: 'upload',
+    icon: 'upload',
+    path: '/uplaod',
+    component: './Upload',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
