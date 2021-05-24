@@ -102,12 +102,12 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   // Get user ID from local storage
   const id = localStorage.getItem('id');
 
-  let [result] = useQuery({
+  let [userResult] = useQuery({
     query: USER,
     variables: { id },
   });
 
-  const { data, fetching, error } = result;
+  const { data, fetching, error } = userResult;
 
   if (fetching) return loadingSpin;
   if (error) return <p>Oops... something went wrong. {error.message}</p>
