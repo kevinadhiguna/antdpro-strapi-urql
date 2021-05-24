@@ -12,7 +12,9 @@ Ant Design Pro v5 boilerplate powered by Strapi GraphQL API and Urql GraphQL cli
 
 </div>
 
-🚧 Currently under the development
+<a href="https://github.com/kevinadhiguna/antdpro-strapi-urql">
+  <img src="https://s3.gifyu.com/images/3k4jh3rk43j5h43kjnr.png" alt="Ant Design Pro  x Strapi GraphQL x URQL" border="0" />
+</a>
 
 ## Environment Prepare
 
