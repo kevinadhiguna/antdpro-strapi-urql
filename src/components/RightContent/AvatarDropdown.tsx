@@ -102,11 +102,18 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   // Get user ID from local storage
   const id = localStorage.getItem('id');
 
-  const [result] = useQuery({
+  let [result] = useQuery({
     query: USER,
     variables: { id },
   });
 
+  const { data, fetching, error } = result;
+
+  if (fetching) return loadingSpin;
+  if (error) return <p>Oops... something went wrong. {error.message}</p>
+
+  console.log('RESULT : ', data);
+  
   // Get username from local storage
   const username = localStorage.getItem('username');
 
@@ -115,8 +122,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   //   return loadingSpin;
   // }
 
-  // == Return loadingSpin component only if either username or Profile Picture URL is false ==
-  if (!username || !result.data.user.profpic.url) {
+  // Return loadingSpin component only if either username or Profile Picture URL is false
+  if (!username || !data.user.profpic.url) {
     return loadingSpin;
   }
 
@@ -126,7 +133,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         <Avatar
           size="small"
           className={styles.avatar}
-          src={result.data.user.profpic.url}
+          src={data.user.profpic.url}
           alt="avatar"
         />
         <span className={`${styles.name} anticon`}>{username}</span>
