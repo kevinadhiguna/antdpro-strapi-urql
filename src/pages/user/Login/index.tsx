@@ -88,23 +88,23 @@ const Login: React.FC = () => {
       localStorage.clear();
 
       // == Login: 1st way ==
-      // const variables = {
-      //   input: {
-      //     identifier: values.username,
-      //     password: values.password,
-      //   },
-      // }
-      // await login(variables);
+      const variables = {
+        input: {
+          identifier: values.username,
+          password: values.password,
+        },
+      }
+      await login(variables);
 
       // == Login: 2nd way ==
-      await login({
-        variables: {
-          input: {
-            identifier: values.username,
-            password: values.password,
-          },
-        },
-      });
+      // await login({
+      //   variables: {
+      //     input: {
+      //       identifier: values.username,
+      //       password: values.password,
+      //     },
+      //   },
+      // });
 
       // Store data to local storage unless an error occurs
       if (!loginResult.error) {
