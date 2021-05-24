@@ -51,10 +51,8 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
 
-  const [loginResult, login] = useMutation(LOGIN);
-
   const intl = useIntl();
-
+  
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
@@ -65,25 +63,13 @@ const Login: React.FC = () => {
     }
   };
 
+  const [loginResult, login] = useMutation(LOGIN);
+
+  const { data, error } = loginResult;
+  
   const handleSubmit = async (values: API.LoginParams) => {
     setSubmitting(true);
     try {
-      // == Original Ant Design Pro Login functionality code ==
-      // const msg = await loginAntdPro({ ...values, type });
-      // if (msg.status === 'ok') {
-      //   const defaultloginSuccessMessage = intl.formatMessage({
-      //     id: 'pages.login.success',
-      //     defaultMessage: '登录成功！',
-      //   });
-      //   message.success(defaultloginSuccessMessage);
-      //   await fetchUserInfo();
-      //   goto();
-      //   return;
-      // }
-
-      // == If it fails to set user error message ==
-      // setUserLoginState(msg);
-
       // Clear local storage first
       localStorage.clear();
 
@@ -105,17 +91,17 @@ const Login: React.FC = () => {
       });
 
       // Store data to local storage unless an error occurs
-      if (!loginResult.error) {
-        localStorage.setItem('jwt', loginResult.data.login.jwt);
-        localStorage.setItem('id', loginResult.data.login.user.id);
-        localStorage.setItem('username', loginResult.data.login.user.username);
-        localStorage.setItem('email', loginResult.data.login.user.email);
-        localStorage.setItem('confirmed', loginResult.data.login.user.confirmed);
-        localStorage.setItem('blocked', loginResult.data.login.user.blocked);
-        localStorage.setItem('role-id', loginResult.data.login.user.role.id);
-        localStorage.setItem('role-name', loginResult.data.login.user.role.name);
-        localStorage.setItem('role-description', loginResult.data.login.user.role.description);
-        localStorage.setItem('role-type', loginResult.data.login.user.role.type);
+      if (!error) {
+        localStorage.setItem('jwt', data.login.jwt);
+        localStorage.setItem('id', data.login.user.id);
+        localStorage.setItem('username', data.login.user.username);
+        localStorage.setItem('email', data.login.user.email);
+        localStorage.setItem('confirmed', data.login.user.confirmed);
+        localStorage.setItem('blocked', data.login.user.blocked);
+        localStorage.setItem('role-id', data.login.user.role.id);
+        localStorage.setItem('role-name', data.login.user.role.name);
+        localStorage.setItem('role-description', data.login.user.role.description);
+        localStorage.setItem('role-type', data.login.user.role.type);
         console.info('Data has been saved in localstorage !');
         console.info('You are on :', location.pathname);
         history.push('/');
@@ -124,7 +110,7 @@ const Login: React.FC = () => {
       } else {
         console.error('A URQL client error happened :', loginResult.error);
       }
-    } catch (error) {
+    } catch (err) {
       const defaultloginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
         defaultMessage: '登录失败，请重试！',
