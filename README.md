@@ -1,4 +1,4 @@
-<h1 align="center">Ant Design Pro x Strapi GraphQL x urql</h1>
+<h1 align="center">Ant Design Pro x Strapi GraphQL x URQL client</h1>
 
 <div align="center">
 
@@ -12,7 +12,9 @@ Ant Design Pro v5 boilerplate powered by Strapi GraphQL API and Urql GraphQL cli
 
 </div>
 
-🚧 Currently under the development
+<a href="https://github.com/kevinadhiguna/antdpro-strapi-urql">
+  <img src="https://s3.gifyu.com/images/3k4jh3rk43j5h43kjnr.png" alt="Ant Design Pro  x Strapi GraphQL x URQL" border="0" />
+</a>
 
 ## Environment Prepare
 
@@ -81,4 +83,8 @@ yarn lint:fix
 yarn test
 ```
 
-[![Visits Badge](https://badges.pufler.dev/visits/kevinadhiguna/antdpro-urql-strapi)](https://github.com/kevinadhiguna)
+## 📦 Looking for Ant Design Pro with Apollo GraphQL client ?
+
+Here is the repo you might be looking for : [https://github.com/kevinadhiguna/antdpro-strapi-auth](https://github.com/kevinadhiguna/antdpro-strapi-auth)
+
+[![Visits Badge](https://badges.pufler.dev/visits/kevinadhiguna/antdpro-strapi-urql)](https://github.com/kevinadhiguna)
