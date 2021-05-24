@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title': '✨ Ant Design Pro with Strapi, powered by URQL client',
+  'pages.layouts.userLayout.title': '💥 Ant Design Pro with Strapi, powered by URQL client',
   'pages.login.accountLogin.tab': 'Account Login',
   'pages.login.accountLogin.errorMessage': 'Incorrect username/password（admin/ant.design)',
   'pages.login.failure': 'Login failed, please try again!',
