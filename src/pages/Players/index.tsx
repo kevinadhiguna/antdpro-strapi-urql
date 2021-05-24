@@ -1,4 +1,5 @@
 import { Table, Result, Avatar } from 'antd';
+import Skeleton from '@ant-design/pro-skeleton';
 
 import { JUVENTUS } from '@/graphql/query';
 import { useQuery } from 'urql';
@@ -21,7 +22,11 @@ const Players = () => {
     query: JUVENTUS
   });
 
-  const { data } = juventusResult;
+  const { data, fetching } = juventusResult;
+
+  if (fetching) {
+    return <Skeleton type="list" />;
+  }
   
   if (data !== undefined) {
 
