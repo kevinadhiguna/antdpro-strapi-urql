@@ -108,10 +108,10 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { data, fetching, error } = userResult;
 
   if (fetching) return loadingSpin;
-  if (error) return <p>Oops... something went wrong. {error.message}</p>
+  if (error) return <p>Oops... something went wrong. {error.message}</p>;
 
   console.log('User query result : ', data);
-  
+
   // Get username from local storage
   const username = localStorage.getItem('username');
 
@@ -123,12 +123,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar
-          size="small"
-          className={styles.avatar}
-          src={data.user.profpic.url}
-          alt="avatar"
-        />
+        <Avatar size="small" className={styles.avatar} src={data.user.profpic.url} alt="avatar" />
         <span className={`${styles.name} anticon`}>{username}</span>
       </span>
     </HeaderDropdown>

@@ -18,8 +18,8 @@ export type TableListItem = {
 };
 
 const Players = () => {
-  const [ juventusResult ] = useQuery({
-    query: JUVENTUS
+  const [juventusResult] = useQuery({
+    query: JUVENTUS,
   });
 
   const { data, fetching, error } = juventusResult;
@@ -29,8 +29,8 @@ const Players = () => {
   }
 
   if (error) {
-    console.log("This is how data look : ", data);
-    console.error("An error occured when fetching Juventus query : ", error);
+    console.log('This is how data look : ', data);
+    console.error('An error occured when fetching Juventus query : ', error);
 
     return (
       <Result

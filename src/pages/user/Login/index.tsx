@@ -52,7 +52,7 @@ const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const intl = useIntl();
-  
+
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
@@ -64,7 +64,7 @@ const Login: React.FC = () => {
   };
 
   const [loginResult, login] = useMutation(LOGIN);
-  
+
   const handleSubmit = async (values: API.LoginParams) => {
     setSubmitting(true);
     try {
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
         input: {
           identifier: values.username,
           password: values.password,
-        }
+        },
       });
 
       // Store data to local storage unless an error occurs

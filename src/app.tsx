@@ -36,7 +36,6 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-
       const userId = localStorage.getItem('id');
 
       if (userId == null) {
@@ -219,8 +218,8 @@ const client = createClient({
     // Get JSON Web Token from local storage
     const token = localStorage.getItem('jwt');
 
-    console.log("token = ", token);
-    
+    console.log('token = ', token);
+
     return {
       // Attach JSON Web Token to headers
       headers: {
