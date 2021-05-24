@@ -1,4 +1,4 @@
-<h1 align="center">Ant Design Pro x Strapi GraphQL x urql</h1>
+<h1 align="center">Ant Design Pro x Strapi GraphQL x URQL client</h1>
 
 <div align="center">
 
