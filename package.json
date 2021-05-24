@@ -54,6 +54,7 @@
     "@umijs/openapi": "^1.1.14",
     "@umijs/plugin-openapi": "^1.2.0",
     "@umijs/route-utils": "^1.0.36",
+    "@urql/core": "^2.1.2",
     "@urql/exchange-multipart-fetch": "^0.1.12",
     "antd": "^4.14.0",
     "classnames": "^2.2.6",
