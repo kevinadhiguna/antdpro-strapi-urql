@@ -83,7 +83,7 @@ yarn lint:fix
 yarn test
 ```
 
-## Looking for Ant Design Pro with Apollo GraphQL client ?
+## 📦 Looking for Ant Design Pro with Apollo GraphQL client ?
 
 Here is the repo you might be looking for : [https://github.com/kevinadhiguna/antdpro-strapi-auth](https://github.com/kevinadhiguna/antdpro-strapi-auth)
 
