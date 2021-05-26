@@ -49,7 +49,7 @@
     component: './Players',
   },
   {
-    name: 'upload',
+    name: 'Upload',
     icon: 'upload',
     path: '/uplaod',
     component: './Upload',
