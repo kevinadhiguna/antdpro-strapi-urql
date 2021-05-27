@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useMutation } from 'urql';
 import { CREATEJUVENTUS, UPLOADPROFPIC } from '@/graphql/mutation';
 
-const Upload = () => {
+const UploadProfpic = () => {
   const [profpic, setProfpic] = useState<File | null>(null);
 
   const [CreateJuventus] = useMutation(CREATEJUVENTUS);
@@ -18,4 +18,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadProfpic;
