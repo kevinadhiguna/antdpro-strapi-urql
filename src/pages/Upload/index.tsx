@@ -5,6 +5,16 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useMutation } from 'urql';
 import { CREATEJUVENTUS, UPLOADPROFPIC } from '@/graphql/mutation';
 
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 14,
+  },
+};
+
+
 const UploadProfpic = () => {
   const [profpic, setProfpic] = useState<File | null>(null);
 
