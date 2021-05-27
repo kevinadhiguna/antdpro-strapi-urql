@@ -1,6 +1,6 @@
 import { gql } from '@urql/core';
 
-// LOGIN mutation
+// LOGIN mutation for authentication
 export const LOGIN = gql`
   mutation Login($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
@@ -35,12 +35,7 @@ export const CREATEJUVENTUS = gql`
 
 // Upload a profile picture
 export const UPLOADPROFPIC = gql`
-  mutation UploadProfpic(
-    $refId: ID
-    $ref: String
-    $field: String
-    $file: Upload!
-  ) {
+  mutation UploadProfpic($refId: ID, $ref: String, $field: String, $file: Upload!) {
     upload(refId: $refId, ref: $ref, field: $field, file: $file) {
       id
       createdAt
