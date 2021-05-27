@@ -21,3 +21,14 @@ export const LOGIN = gql`
     }
   }
 `;
+
+// Create a record in 'juventus' content-type
+export const CREATEJUVENTUS = gql`
+  mutation CreateJuventus($input: createJuventusInput) {
+    createJuventus(input: $input) {
+      juventus {
+        id
+      }
+    }
+  }
+`;
