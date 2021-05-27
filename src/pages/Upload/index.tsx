@@ -14,6 +14,15 @@ const formItemLayout = {
   },
 };
 
+const uploadedFile = (e: any) => {
+  console.log('Upload event:', e);
+
+  if (Array.isArray(e)) {
+    return e;
+  }
+
+  return e && e.fileList;
+};
 
 const UploadProfpic = () => {
   const [profpic, setProfpic] = useState<File | null>(null);
