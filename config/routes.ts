@@ -55,6 +55,12 @@
     component: './Upload',
   },
   {
+    name: 'form',
+    icon: 'fileadd',
+    path: '/form',
+    component: './Form',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
