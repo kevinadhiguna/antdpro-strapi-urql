@@ -33,6 +33,16 @@
     classnames "^2.2.6"
     rc-util "^5.9.4"
 
+"@ant-design/pro-card@^1.13.1":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@ant-design/pro-card/-/pro-card-1.13.1.tgz#99bc864ee5a30075d838e9db99ab5f58bb0f1b5e"
+  integrity sha512-pXlUvrx0kt0yQcfT0P8S751dwPnlMqkQCPY2/3t8w3DCK/VqZkmWlmxiquaxzf3ZA5ZIbDK2XIC0MvqpM+iwXQ==
+  dependencies:
+    "@ant-design/icons" "^4.2.1"
+    "@ant-design/pro-utils" "1.18.1"
+    classnames "^2.2.6"
+    omit.js "^2.0.2"
+
 "@ant-design/pro-cli@^2.0.2":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@ant-design/pro-cli/-/pro-cli-2.0.4.tgz#fb31d713d9ca2cf09e962858e6b4bf3578a0ef3c"
@@ -175,6 +185,19 @@
     fast-deep-equal "^3.1.3"
     moment "^2.27.0"
     rc-util "^5.0.6"
+
+"@ant-design/pro-utils@1.18.1":
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/@ant-design/pro-utils/-/pro-utils-1.18.1.tgz#d48e852a71b1227a56548eecea047faf673e32ff"
+  integrity sha512-RMjBBPkGzm1UnLjaTov9Yq17iTkuukCQrTCvbyPP5mMSmgbclltQtqCHd4aX4I7ReJbNNvlXyA9cj42MC+TeuQ==
+  dependencies:
+    "@ant-design/icons" "^4.3.0"
+    "@ant-design/pro-provider" "1.4.12"
+    classnames "^2.2.6"
+    fast-deep-equal "^3.1.3"
+    moment "^2.27.0"
+    rc-util "^5.0.6"
+    swr "^0.5.6"
 
 "@ant-design/react-slick@~0.28.1":
   version "0.28.3"
@@ -14164,7 +14187,7 @@ swr@^0.3.6:
   dependencies:
     dequal "2.0.2"
 
-swr@^0.5.4:
+swr@^0.5.4, swr@^0.5.6:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.6.tgz#70bfe9bc9d7ac49a064be4a0f4acf57982e55a31"
   integrity sha512-Bmx3L4geMZjYT5S2Z6EE6/5Cx6v1Ka0LhqZKq8d6WL2eu9y6gHWz3dUzfIK/ymZVHVfwT/EweFXiYGgfifei3w==
