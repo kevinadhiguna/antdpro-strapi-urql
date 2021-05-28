@@ -55,7 +55,7 @@
     component: './Upload',
   },
   {
-    name: 'form',
+    name: 'addPlayer',
     icon: 'fileadd',
     path: '/form',
     component: './Form',
