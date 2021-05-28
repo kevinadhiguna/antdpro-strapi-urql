@@ -33,6 +33,8 @@ const UploadProfpic = () => {
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
   const onFinish = async (values: File) => {
+    console.log("Received values from Form : ", values);
+
     let refId;
 
     try {
