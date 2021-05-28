@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button } from 'antd';
+import { Form, Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import { useMutation } from 'urql';
@@ -32,7 +32,7 @@ const UploadProfpic = () => {
   const [createJuventusResult, createJuventus] = useMutation(CREATEJUVENTUS);
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
-  const onFinish = async(values: File) => {
+  const onFinish = async (values: File) => {
     let refId;
 
     try {
@@ -61,9 +61,9 @@ const UploadProfpic = () => {
       await uploadProfpic({
         variables: {
           ref,
-          refId, 
+          refId,
           profpic,
-        }
+        },
       });
 
       Swal.fire({
@@ -75,7 +75,7 @@ const UploadProfpic = () => {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
         ref,
         refId,
-        profpic
+        profpic,
       });
 
       Swal.fire({
@@ -86,11 +86,45 @@ const UploadProfpic = () => {
 
       return;
     }
-  }
+  };
 
   return (
     <>
       <h1>Upload page</h1>
+      <Form name="validate_other" {...formItemLayout} onFinish={onFinish}>
+        <Form.Item
+          name="upload"
+          label="Profile Picture"
+          valuePropName="fileList"
+          getValueFromEvent={uploadedFile}
+          extra="Please upload your profile picture here"
+        >
+          <Upload
+            name="logo"
+            action="/upload.do"
+            listType="picture"
+            accept="image/png, image/jpeg"
+            // Use 'beforeUpload' function instead of 'onChange' function as 'onChange' function does not allow to upload a file
+            beforeUpload={(e) => {
+              setProfpic(e);
+              return false;
+            }}
+          >
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            span: 12,
+            offset: 6,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Set Profile Picture now
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   );
 };
