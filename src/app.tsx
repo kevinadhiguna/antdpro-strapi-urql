@@ -218,8 +218,6 @@ const client = createClient({
     // Get JSON Web Token from local storage
     const token = localStorage.getItem('jwt');
 
-    console.log('token = ', token);
-
     return {
       // Attach JSON Web Token to headers
       headers: {

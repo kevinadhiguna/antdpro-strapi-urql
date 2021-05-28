@@ -110,8 +110,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   if (fetching) return loadingSpin;
   if (error) return <p>Oops... something went wrong. {error.message}</p>;
 
-  console.log('User query result : ', data);
-
   // Get username from local storage
   const username = localStorage.getItem('username');
 
