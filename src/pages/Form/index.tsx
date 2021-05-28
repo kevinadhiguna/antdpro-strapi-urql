@@ -40,7 +40,7 @@ export default () => {
                   form?.resetFields();
                 }}
               >
-                重置
+                Reset
               </Button>,
               step > 0 && (
                 <Button
@@ -49,7 +49,7 @@ export default () => {
                     onPre?.();
                   }}
                 >
-                  上一步
+                  Back
                 </Button>
               ),
               <Button
@@ -60,7 +60,7 @@ export default () => {
                   onSubmit?.();
                 }}
               >
-                下一步
+                Next
               </Button>,
             ];
           },
