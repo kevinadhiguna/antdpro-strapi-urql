@@ -30,6 +30,7 @@ export default {
   'menu.list.search-list.projects': 'Search List(projects)',
   'menu.list.search-list.applications': 'Search List(applications)',
   'menu.player.list': 'Players',
+  'menu.upload': 'Upload Picture',
   'menu.profile': 'Profile',
   'menu.profile.basic': 'Basic Profile',
   'menu.profile.advanced': 'Advanced Profile',
