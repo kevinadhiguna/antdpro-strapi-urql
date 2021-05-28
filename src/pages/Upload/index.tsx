@@ -66,11 +66,13 @@ const UploadProfpic = () => {
         },
       });
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Successfully Uploaded 🎉',
-        text: 'Congrats!',
-      });
+      if (!uploadProfpicResult.error) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully Uploaded 🎉',
+          text: 'Congrats!',
+        });
+      }
     } catch (error) {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
         ref,
