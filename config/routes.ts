@@ -56,7 +56,7 @@
   },
   {
     name: 'addPlayer',
-    icon: 'fileadd',
+    icon: 'fileAdd',
     path: '/form',
     component: './Form',
   },
