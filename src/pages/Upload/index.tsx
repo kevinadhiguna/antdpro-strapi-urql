@@ -27,7 +27,7 @@ const uploadedFile = (e: any) => {
 };
 
 const UploadProfpic = () => {
-  const [profpic, setProfpic] = useState<File | null>(null);
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
   const [createJuventusResult, createJuventus] = useMutation(CREATEJUVENTUS);
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
@@ -56,28 +56,42 @@ const UploadProfpic = () => {
     }
 
     const ref = 'juventus';
+    const field = 'profpic';
 
     try {
       await uploadProfpic({
         variables: {
-          ref,
           refId,
-          profpic,
+          ref,
+          field,
+          file: profilePicture
         },
       });
 
-      if (!uploadProfpicResult.error) {
+      console.info("refId : ", refId);
+      console.info("ref : ", ref);
+      console.info("field : ", field);
+      console.info("file : ", profilePicture);
+
+      if (uploadProfpicResult.data !== undefined) {
         Swal.fire({
           icon: 'success',
           title: 'Successfully Uploaded 🎉',
           text: 'Congrats!',
         });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops.. something went wrong',
+          text: 'Please try again later',
+        });
       }
     } catch (error) {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
-        ref,
         refId,
-        profpic,
+        ref,
+        field,
+        file: profilePicture
       });
 
       Swal.fire({
@@ -108,7 +122,7 @@ const UploadProfpic = () => {
             accept="image/png, image/jpeg"
             // Use 'beforeUpload' function instead of 'onChange' function as 'onChange' function does not allow to upload a file
             beforeUpload={(e) => {
-              setProfpic(e);
+              setProfilePicture(e);
               return false;
             }}
           >
