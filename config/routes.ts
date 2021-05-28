@@ -51,7 +51,7 @@
   {
     name: 'upload',
     icon: 'upload',
-    path: '/uplaod',
+    path: '/upload',
     component: './Upload',
   },
   {
