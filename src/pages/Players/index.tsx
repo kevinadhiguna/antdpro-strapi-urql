@@ -49,7 +49,7 @@ const Players = () => {
     dataArray.push({
       key: i,
       name: data.juventuses[i].name,
-      avatar: data.juventuses[i].profpic.url,
+      avatar: data.juventuses[i].profpic?.url,
       number: data.juventuses[i].number,
       age: data.juventuses[i].age,
       country: data.juventuses[i].country,
