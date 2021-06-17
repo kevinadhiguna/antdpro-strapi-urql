@@ -33,7 +33,7 @@ const UploadProfpic = () => {
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
   const onFinish = async (values: File) => {
-    console.log("Received values from Form : ", values);
+    console.log('Received values from Form : ', values);
 
     let refId;
 
@@ -66,14 +66,14 @@ const UploadProfpic = () => {
           refId,
           ref,
           field,
-          file: profilePicture
+          file: profilePicture,
         },
       });
 
-      console.info("refId : ", refId);
-      console.info("ref : ", ref);
-      console.info("field : ", field);
-      console.info("file : ", profilePicture);
+      console.info('refId : ', refId);
+      console.info('ref : ', ref);
+      console.info('field : ', field);
+      console.info('file : ', profilePicture);
 
       if (uploadProfpicResult.data !== undefined) {
         Swal.fire({
@@ -93,7 +93,7 @@ const UploadProfpic = () => {
         refId,
         ref,
         field,
-        file: profilePicture
+        file: profilePicture,
       });
 
       Swal.fire({
