@@ -153,7 +153,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 };
 
 // Setting up the Client
-const client = createClient({
+const urqlClient = createClient({
   url: appConfig.graphqlUri,
   exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
   fetchOptions: () => {
@@ -171,5 +171,5 @@ const client = createClient({
 
 // Providing the Client
 export function rootContainer(container: React.Component) {
-  return <Provider value={client}>{container}</Provider>;
+  return <Provider value={urqlClient}>{container}</Provider>;
 }
