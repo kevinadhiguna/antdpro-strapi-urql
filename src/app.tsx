@@ -127,68 +127,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     onPageChange: () => {
       const { location } = history;
 
-      const jwt = localStorage.getItem('jwt');
-
-      if (location.pathname === loginPath) {
-        console.info('You are on Login screen');
-
-        if (jwt != null) {
-          // Redirect logged in users to '/' if they visit Login screen.
-          history.push('/');
-        }
-      } else {
-        if (jwt != null) {
-          let decoded: JwtPayload;
-
-          // Handle a token which is created intentionally (Invalid JWT)
-          try {
-            // Decode JWT
-            decoded = jwt_decode<JwtPayload>(jwt);
-          } catch (error) {
-            console.error('Invalid token, please login');
-            localStorage.removeItem('jwt');
-            history.push(loginPath);
-            return;
-          }
-
-          if (decoded!.exp != undefined) {
-            // Get Current UTC Time
-            const utcTime = Math.floor(Date.now() / 1000);
-
-            if (utcTime < decoded!.exp) {
-              // If token is not expired, stay in the current screen
-              console.info('You are logged in');
-            } else {
-              console.error('Your token has expired, please login again');
-
-              // Give an alert to user to login again
-              Swal.fire({
-                icon: 'info',
-                title: 'You have been inactive for a while...',
-                text: 'Please login again',
-              });
-
-              localStorage.clear();
-              history.push(loginPath);
-            }
-          } else {
-            console.log('JWT seems to be invalid, please Login again!');
-
-            Swal.fire({
-              icon: 'error',
-              title: 'Something went wrong',
-              text: 'Please login!',
-            });
-
-            localStorage.clear();
-            history.push(loginPath);
-          }
-        } else {
-          console.log('You have not logged in, Login first!');
-
-          // Ask users to login first before visitng other pages
-          history.push(loginPath);
-        }
+      // If not logged in, one is redirect to login screen
+      if (!initialState?.currentUser?.name && location.pathname !== loginPath) {
+        console.debug('You are not logged in, redirecting to login screen...');
+        history.push(loginPath);
       }
     },
     links: isDev
