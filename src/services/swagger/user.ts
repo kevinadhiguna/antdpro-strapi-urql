@@ -2,6 +2,12 @@
 /* eslint-disable */
 import { request } from 'umi';
 
+export async function removeAuthFromLocalStorage() {
+  console.debug('-- Removing Strapi token --');
+
+  localStorage.removeItem('token');
+}
+
 /** Create user This can only be done by the logged in user. POST /user */
 export async function createUser(body: API.User, options?: { [key: string]: any }) {
   return request<any>('/user', {
