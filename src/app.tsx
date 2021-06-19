@@ -15,6 +15,7 @@ import { authExchange } from '@urql/exchange-auth';
 import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 
 import appConfig from './appConfig.json';
+import { removeAuthFromLocalStorage } from './services/swagger/user';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -195,6 +196,19 @@ const urqlClient = createClient({
       // Check if the error was an auth error (this can be implemented in various ways, e.g. 401 or a special error code)
       getAuth: async ({ authState }) => {
         // Put logic for refreshToken if available, but Strapi currently does not support a refreshToken.
+
+        if (!authState) {
+          const strapiToken = localStorage.getItem('jwt');
+          
+          if (strapiToken) {
+            return { strapiToken };
+          }
+          return null;
+        }
+        
+        await removeAuthFromLocalStorage();
+        
+        return null;
       }
     }), 
     multipartFetchExchange
