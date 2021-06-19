@@ -10,7 +10,8 @@ import type { ResponseError } from 'umi-request';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
-import { createClient, Provider, dedupExchange, cacheExchange } from 'urql';
+import { createClient, Provider, dedupExchange, cacheExchange, makeOperation } from 'urql';
+import { authExchange } from '@urql/exchange-auth';
 import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
 
 import appConfig from './appConfig.json';
@@ -152,18 +153,52 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 // Setting up the Client
 const urqlClient = createClient({
   url: appConfig.graphqlUri,
-  exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
-  fetchOptions: () => {
-    // Get JSON Web Token from local storage
-    const token = localStorage.getItem('jwt');
+  exchanges: [
+    dedupExchange, 
+    cacheExchange, 
+    authExchange<{strapiToken: string}>({
+      addAuthToOperation: ({authState, operation}) => {
+        if (!authState) {
+          return operation;
+        }
 
-    return {
-      // Attach JSON Web Token to headers
-      headers: {
-        authorization: token ? `Bearer ${token}` : '',
+        // fetchOptions can be a function (See Client API) but you can simplify this based on usage.
+        const fetchOptions = 
+          typeof operation.context.fetchOptions === 'function'
+            ? operation.context.fetchOptions()
+            : operation.context.fetchOptions || {};
+
+        return makeOperation(operation.kind, operation, {
+          ...operation.context,
+          fetchOptions: {
+            ...fetchOptions,
+            headers: {
+              ...fetchOptions.headers,
+              Authorization: `Bearer ${authState.strapiToken}`
+            },
+          },
+        });
       },
-    };
-  },
+
+      /**
+       * An optional parameter and is run before a network request is made.
+       * For example, we can use this to predict that the authentication will fail because our JWT is invalid already.
+       */
+      willAuthError: ({ authState }) => {
+        if (!authState) return true;
+        
+        /** Code for checking token expiration, existance of auth **/
+
+        return false;
+      },
+
+      // Check if the error was an auth error (this can be implemented in various ways, e.g. 401 or a special error code)
+      getAuth: async ({ authState }) => {
+        // Put logic for refreshToken if available, but Strapi currently does not support a refreshToken.
+      }
+    }), 
+    multipartFetchExchange
+  ],
 });
 
 // Providing the Client
