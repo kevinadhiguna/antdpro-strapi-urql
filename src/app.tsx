@@ -7,7 +7,6 @@ import { getIntl, getLocale, history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { ResponseError } from 'umi-request';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 
 import { createClient, Provider, dedupExchange, cacheExchange, makeOperation } from 'urql';
@@ -30,37 +29,19 @@ export const initialStateConfig = {
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  token?: string | null; 
+  currentUser?: string | null | undefined;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
-  const fetchUserInfo = async () => {
-    try {
-      const userId = localStorage.getItem('id');
+  const fetchUserInfo = async () => undefined;
 
-      if (userId == null) {
-        return undefined;
-      } else {
-        let currentUser: API.CurrentUser = { userid: userId };
-        return currentUser;
-      }
-    } catch (error) {
-      console.info('Current User is undefined :', error);
-      history.push(loginPath);
-    }
-    return undefined;
-  };
+  const token = localStorage.getItem('jwt');
+  const currentUser = localStorage.getItem('username');
 
-  // If it is a login page, do not execute
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
-  }
   return {
     fetchUserInfo,
+    token,
+    currentUser,
     settings: {},
   };
 }
@@ -120,16 +101,24 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser!
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
 
       // If not logged in, one is redirect to login screen
-      if (!initialState?.currentUser?.name && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && location.pathname !== loginPath) {
         console.debug('You are not logged in, redirecting to login screen...');
         history.push(loginPath);
+      }
+
+      console.debug('Initial state is : ', initialState);
+
+      // If authenticated, one should not be able to visit the Login screen  
+      if (initialState?.token && initialState.currentUser && location.pathname === loginPath) {
+        console.info('You are logged in, not allowed to visit the login screen...');
+        history.push('/players');
       }
     },
     links: isDev
@@ -207,7 +196,7 @@ const urqlClient = createClient({
         }
         
         await removeAuthFromLocalStorage();
-        
+
         return null;
       }
     }), 
