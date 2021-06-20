@@ -1,4 +1,5 @@
-import { Table, Result, Avatar, Button } from 'antd';
+import { useState } from 'react';
+import { Table, Result, Avatar, Button, Modal } from 'antd';
 import Skeleton from '@ant-design/pro-skeleton';
 
 import { JUVENTUS } from '@/graphql/query';
@@ -21,6 +22,27 @@ export type TableListItem = {
 };
 
 const Players = () => {
+  const [isModalVisible, setisModalVisible] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [modalContext, setModalContext] = useState<string | null>("This is a modal text");
+
+  const showModal = () => {
+    setisModalVisible(true);
+  }
+
+  const handleCancel = () => {
+    setisModalVisible(false);
+  }
+
+  const handleOk = () => {
+    setModalContext("This modal will be closed after 3 seconds");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setisModalVisible(false);
+      setConfirmLoading(false);
+    }, 3000);
+  }
+
   const [juventusResult] = useQuery({
     query: JUVENTUS,
   });
@@ -120,7 +142,7 @@ const Players = () => {
       title: 'Action',
       render: () => {
         return(
-          <Button type="primary" icon={<EditOutlined />}>Edit</Button>
+          <Button type="primary" icon={<EditOutlined />} onClick={showModal}>Edit</Button>
         );
       }
     },
@@ -130,6 +152,9 @@ const Players = () => {
     <>
       <DevelopmentAlert />
       <Table dataSource={dataArray} columns={columns} />
+      <Modal title="Edit a Player" visible={isModalVisible} confirmLoading={confirmLoading} onOk={handleOk} onCancel={handleCancel}>
+        <p>{modalContext}</p>
+      </Modal>
     </>
   );
 };
