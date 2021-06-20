@@ -1,10 +1,11 @@
-import { Table, Result, Avatar } from 'antd';
+import { Table, Result, Avatar, Button } from 'antd';
 import Skeleton from '@ant-design/pro-skeleton';
 
 import { JUVENTUS } from '@/graphql/query';
 import { useQuery } from 'urql';
 
 import DevelopmentAlert from '@/components/DevelopmentAlert'; 
+import { EditOutlined } from '@ant-design/icons';
 
 export type TableListItem = {
   key: number;
@@ -114,6 +115,14 @@ const Players = () => {
       title: 'Position',
       dataIndex: 'position',
       key: 'position',
+    },
+    {
+      title: 'Action',
+      render: () => {
+        return(
+          <Button type="primary" icon={<EditOutlined />}>Edit</Button>
+        );
+      }
     },
   ];
 
