@@ -29,7 +29,7 @@ export const initialStateConfig = {
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  token?: string | null; 
+  token?: string | null;
   currentUser?: string | null | undefined;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
@@ -101,7 +101,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser!
+      content: initialState?.currentUser!,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -115,7 +115,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 
       console.debug('Initial state is : ', initialState);
 
-      // If authenticated, one should not be able to visit the Login screen  
+      // If authenticated, one should not be able to visit the Login screen
       if (initialState?.token && initialState.currentUser && location.pathname === loginPath) {
         console.info('You are logged in, not allowed to visit the login screen...');
         history.push('/players');
@@ -144,16 +144,16 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 const urqlClient = createClient({
   url: appConfig.graphqlUri,
   exchanges: [
-    dedupExchange, 
-    cacheExchange, 
-    authExchange<{strapiToken: string}>({
-      addAuthToOperation: ({authState, operation}) => {
+    dedupExchange,
+    cacheExchange,
+    authExchange<{ strapiToken: string }>({
+      addAuthToOperation: ({ authState, operation }) => {
         if (!authState) {
           return operation;
         }
 
         // fetchOptions can be a function (See Client API) but you can simplify this based on usage.
-        const fetchOptions = 
+        const fetchOptions =
           typeof operation.context.fetchOptions === 'function'
             ? operation.context.fetchOptions()
             : operation.context.fetchOptions || {};
@@ -164,7 +164,7 @@ const urqlClient = createClient({
             ...fetchOptions,
             headers: {
               ...fetchOptions.headers,
-              Authorization: `Bearer ${authState.strapiToken}`
+              Authorization: `Bearer ${authState.strapiToken}`,
             },
           },
         });
@@ -176,7 +176,7 @@ const urqlClient = createClient({
        */
       willAuthError: ({ authState }) => {
         if (!authState) return true;
-        
+
         /** Code for checking token expiration, existance of auth **/
 
         return false;
@@ -188,19 +188,19 @@ const urqlClient = createClient({
 
         if (!authState) {
           const strapiToken = localStorage.getItem('jwt');
-          
+
           if (strapiToken) {
             return { strapiToken };
           }
           return null;
         }
-        
+
         await removeAuthFromLocalStorage();
 
         return null;
-      }
-    }), 
-    multipartFetchExchange
+      },
+    }),
+    multipartFetchExchange,
   ],
 });
 

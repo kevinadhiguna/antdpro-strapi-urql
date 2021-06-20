@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProForm, {
   StepsForm,
   ProFormText,
@@ -24,7 +24,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
   return (
     <>
-      <Alert 
+      <Alert
         message="Warning"
         description="This page is currently under the development..."
         type="warning"
