@@ -7,6 +7,8 @@ import { CREATEJUVENTUS, UPLOADPROFPIC } from '@/graphql/mutation';
 
 import Swal from 'sweetalert2';
 
+import DevelopmentAlert from '@/components/DevelopmentAlert';
+
 const formItemLayout = {
   labelCol: {
     span: 6,
@@ -108,6 +110,7 @@ const UploadProfpic = () => {
 
   return (
     <>
+      <DevelopmentAlert />
       <h1>Upload page</h1>
       <Form name="validate_other" {...formItemLayout} onFinish={onFinish}>
         <Form.Item

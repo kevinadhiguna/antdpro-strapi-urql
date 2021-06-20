@@ -4,6 +4,8 @@ import Skeleton from '@ant-design/pro-skeleton';
 import { JUVENTUS } from '@/graphql/query';
 import { useQuery } from 'urql';
 
+import DevelopmentAlert from '@/components/DevelopmentAlert'; 
+
 export type TableListItem = {
   key: number;
   name: string;
@@ -115,7 +117,12 @@ const Players = () => {
     },
   ];
 
-  return <Table dataSource={dataArray} columns={columns} />;
+  return(
+    <>
+      <DevelopmentAlert />
+      <Table dataSource={dataArray} columns={columns} />
+    </>
+  );
 };
 
 export default Players;

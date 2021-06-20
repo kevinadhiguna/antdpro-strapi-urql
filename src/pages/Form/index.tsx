@@ -10,7 +10,9 @@ import ProForm, {
   ProFormDependency,
 } from '@ant-design/pro-form';
 import ProCard from '@ant-design/pro-card';
-import { Alert, Button, message } from 'antd';
+import { Button, message } from 'antd';
+
+import DevelopmentAlert from '@/components/DevelopmentAlert';
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -24,14 +26,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
   return (
     <>
-      <Alert
-        message="Warning"
-        description="This page is currently under the development..."
-        type="warning"
-        showIcon
-        closable
-        style={{ marginBottom: '8px' }}
-      />
+      <DevelopmentAlert />
       <ProCard>
         <StepsForm
           onFinish={async () => {
