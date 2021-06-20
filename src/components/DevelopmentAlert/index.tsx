@@ -11,6 +11,6 @@ const DevelopmentAlert = () => {
       style={{ marginBottom: '8px' }}
     />
   );
-}
+};
 
 export default DevelopmentAlert;

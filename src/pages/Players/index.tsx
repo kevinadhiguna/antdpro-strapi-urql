@@ -5,7 +5,7 @@ import Skeleton from '@ant-design/pro-skeleton';
 import { JUVENTUS } from '@/graphql/query';
 import { useQuery } from 'urql';
 
-import DevelopmentAlert from '@/components/DevelopmentAlert'; 
+import DevelopmentAlert from '@/components/DevelopmentAlert';
 import { EditOutlined } from '@ant-design/icons';
 
 export type TableListItem = {
@@ -24,24 +24,24 @@ export type TableListItem = {
 const Players = () => {
   const [isModalVisible, setisModalVisible] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [modalContext, setModalContext] = useState<string | null>("This is a modal text");
+  const [modalContext, setModalContext] = useState<string | null>('This is a modal text');
 
   const showModal = () => {
     setisModalVisible(true);
-  }
+  };
 
   const handleCancel = () => {
     setisModalVisible(false);
-  }
+  };
 
   const handleOk = () => {
-    setModalContext("This modal will be closed after 3 seconds");
+    setModalContext('This modal will be closed after 3 seconds');
     setConfirmLoading(true);
     setTimeout(() => {
       setisModalVisible(false);
       setConfirmLoading(false);
     }, 3000);
-  }
+  };
 
   const [juventusResult] = useQuery({
     query: JUVENTUS,
@@ -141,18 +141,26 @@ const Players = () => {
     {
       title: 'Action',
       render: () => {
-        return(
-          <Button type="primary" icon={<EditOutlined />} onClick={showModal}>Edit</Button>
+        return (
+          <Button type="primary" icon={<EditOutlined />} onClick={showModal}>
+            Edit
+          </Button>
         );
-      }
+      },
     },
   ];
 
-  return(
+  return (
     <>
       <DevelopmentAlert />
       <Table dataSource={dataArray} columns={columns} />
-      <Modal title="Edit a Player" visible={isModalVisible} confirmLoading={confirmLoading} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title="Edit a Player"
+        visible={isModalVisible}
+        confirmLoading={confirmLoading}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
         <p>{modalContext}</p>
       </Modal>
     </>
