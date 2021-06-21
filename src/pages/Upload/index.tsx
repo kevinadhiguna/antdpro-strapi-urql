@@ -115,6 +115,7 @@ const UploadProfpic = () => {
               setProfilePicture(e);
               return false;
             }}
+            onRemove={() => setProfilePicture(null)}
           >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
