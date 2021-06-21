@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Form, Input, InputNumber, Button, Upload } from 'antd';
+import { Form, Input, InputNumber, Button, Upload, message } from 'antd';
+import { useMutation } from 'urql';
 
+import { ADDJUVENTUSPLAYER, UPLOADPROFPIC } from '@/graphql/mutation';
 import DevelopmentAlert from '@/components/DevelopmentAlert';
 
 const AddPlayerFormLayout = {
@@ -27,6 +30,37 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const AddPlayer: React.FC = () => {
+  // Call a form method
+  const [addPlayerForm] = Form.useForm();
+
+  // States to manage form data
+  const [name, setName] = useState<string>('');
+  const [number, setNumber] = useState<number | undefined>();
+  const [age, setAge] = useState<number | undefined>();
+  const [country, setCountry] = useState<string>('');
+  const [appearences, setAppearences] = useState<number | undefined>();
+  const [goals, setGoals] = useState<number | undefined>();
+  const [minutesPlayed, setMinutesPlayed] = useState<number | undefined>();
+  const [position, setPosition] = useState<string>('');
+  const [profpic, setProfpic] = useState<File | null>(null);
+
+  // A state to manage button
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const isClickable: boolean =
+    name != undefined &&
+    number != undefined &&
+    age != undefined &&
+    country != undefined &&
+    appearences != undefined &&
+    goals != undefined &&
+    minutesPlayed != undefined &&
+    position != undefined &&
+    profpic != null;
+
+  // useMutations hooks to add a player and upload player's profile picture
+  const [addJuventusPlayerResult, addJuventusPlayer] = useMutation(ADDJUVENTUSPLAYER);
+  const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
+
   const normFile = (e: any) => {
     console.log('Upload event:', e);
 
@@ -37,8 +71,84 @@ const AddPlayer: React.FC = () => {
     return e && e.fileList;
   };
 
-  const onFinish = (values: any) => {
-    console.log(values);
+  const onFinish = async (values: any) => {
+    console.log('Values from Form : ', values);
+
+    setIsLoading(true);
+
+    // ID of the entry in Juventuses collection-type
+    let refId;
+
+    try {
+      const addJuventusPlayerVariables = {
+        input: {
+          data: {
+            name,
+            number,
+            age,
+            country,
+            appearences,
+            goals,
+            minutesPlayed,
+            position,
+          },
+        },
+      };
+
+      const { data } = await addJuventusPlayer(addJuventusPlayerVariables);
+
+      console.info('Data from addJuventusPlayer : ', data);
+
+      // refId refers to the ID of the entry that Strapi created successfully
+      refId = data.createJuventus.juventus.id;
+    } catch (error) {
+      console.error('Error occured during Juventus player record creation : ', error);
+
+      // Display a notification on Strapi entry creation error
+      message.error('Error occured during record creation !');
+
+      // To not display loading spin on the verify button
+      setIsLoading(false);
+
+      // Avoid running the rest of code
+      return;
+    }
+
+    // Define a content-type name in which images will be uplaoded
+    const ref = 'juventus';
+    try {
+      const uploadProfpicVariables = {
+        ref,
+        refId,
+        profpic,
+      };
+
+      await uploadProfpic(uploadProfpicVariables);
+
+      message.success('Successfully Uploaded 🎉');
+
+      // Make the verify button not loading anymore
+      setIsLoading(false);
+
+      // Reset form fields and set all images' states to null
+      addPlayerForm.resetFields();
+      setProfpic(null);
+    } catch (error) {
+      console.error('Error during uploading the profile picture : ', error, ' variables : ', {
+        ref,
+        refId,
+        profpic,
+      });
+
+      // Inform users that an error happened during uploading images
+      message.error('Error occured during uploading the profile picture');
+
+      // Stop showing the loading spin on the verify button
+      setIsLoading(false);
+
+      // The rest of code will not be executed
+      return;
+    }
   };
 
   return (
@@ -49,6 +159,7 @@ const AddPlayer: React.FC = () => {
         name="addPlayer"
         onFinish={onFinish}
         validateMessages={validateMessages}
+        form={addPlayerForm}
       >
         <Form.Item
           name="name"
@@ -59,7 +170,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <Input />
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Item>
         <Form.Item
           name="number"
@@ -73,7 +184,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber value={number} onChange={(e) => setNumber(e)} />
         </Form.Item>
         <Form.Item
           name="age"
@@ -87,10 +198,10 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber value={age} onChange={(e) => setAge(e)} />
         </Form.Item>
         <Form.Item name="country" label="Country">
-          <Input />
+          <Input value={country} onChange={(e) => setCountry(e.target.value)} />
         </Form.Item>
         <Form.Item
           name="appearences"
@@ -104,7 +215,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber value={appearences} onChange={(e) => setAppearences(e)} />
         </Form.Item>
         <Form.Item
           name="goals"
@@ -117,7 +228,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber value={goals} onChange={(e) => setGoals(e)} />
         </Form.Item>
         <Form.Item
           name="minutesPlayed"
@@ -130,7 +241,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber value={minutesPlayed} onChange={(e) => setMinutesPlayed(e)} />
         </Form.Item>
         <Form.Item
           name="position"
@@ -141,7 +252,7 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <Input />
+          <Input value={position} onChange={(e) => setPosition(e.target.value)} />
         </Form.Item>
         <Form.Item
           name="profpic"
@@ -150,6 +261,11 @@ const AddPlayer: React.FC = () => {
           getValueFromEvent={normFile}
           extra="Please upload player's picture"
           required={true}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <Upload
             name="profilePicture"
@@ -158,15 +274,16 @@ const AddPlayer: React.FC = () => {
             maxCount={1}
             // Use 'beforeUpload' function instead of 'onChange' function as 'onChange' function does not allow to upload a file
             beforeUpload={(e) => {
+              setProfpic(e);
               return false;
             }}
-            onRemove={() => {}}
+            onRemove={() => setProfpic(null)}
           >
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         </Form.Item>
         <Form.Item wrapperCol={{ ...AddPlayerFormLayout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isLoading} disabled={!isClickable}>
             Submit
           </Button>
         </Form.Item>
