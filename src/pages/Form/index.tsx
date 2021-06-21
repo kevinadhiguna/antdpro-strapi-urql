@@ -117,7 +117,7 @@ const AddPlayer: React.FC = () => {
     // Define a content-type name in which images will be uplaoded
     const ref = 'juventus';
     const field = 'profpic';
-    
+
     try {
       const uploadProfpicVariables = {
         ref,

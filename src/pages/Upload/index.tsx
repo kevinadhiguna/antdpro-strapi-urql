@@ -86,7 +86,7 @@ const UploadProfpic = () => {
       });
 
       uploadForm.resetFields();
-      
+
       setProfilePicture(null);
       setIsLoading(false);
     } catch (error) {
