@@ -48,12 +48,13 @@
     path: '/players',
     component: './Players',
   },
-  {
-    name: 'upload',
-    icon: 'upload',
-    path: '/upload',
-    component: './Upload',
-  },
+  // Hide the upload screen for a reason, feel free to include it if you want.
+  // {
+  //   name: 'upload',
+  //   icon: 'upload',
+  //   path: '/upload',
+  //   component: './Upload',
+  // },
   {
     name: 'addPlayer',
     icon: 'fileAdd',
