@@ -3,7 +3,7 @@ import { Form, Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import { useMutation } from 'urql';
-import { CREATEJUVENTUS, UPLOADPROFPIC } from '@/graphql/mutation';
+import { ADDJUVENTUSPLAYER, UPLOADPROFPIC } from '@/graphql/mutation';
 
 import Swal from 'sweetalert2';
 
@@ -31,7 +31,7 @@ const uploadedFile = (e: any) => {
 const UploadProfpic = () => {
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
-  const [createJuventusResult, createJuventus] = useMutation(CREATEJUVENTUS);
+  const [createJuventusResult, createJuventus] = useMutation(ADDJUVENTUSPLAYER);
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
   const onFinish = async (values: File) => {
