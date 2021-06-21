@@ -22,12 +22,24 @@ export const LOGIN = gql`
   }
 `;
 
-// Create a record in 'juventus' content-type
-export const CREATEJUVENTUS = gql`
-  mutation CreateJuventus($input: createJuventusInput) {
+// Create a record in 'juventus' content-type to add a Juventus player
+export const ADDJUVENTUSPLAYER = gql`
+  mutation AddJuventusPlayer($input: createJuventusInput) {
     createJuventus(input: $input) {
       juventus {
         id
+        name
+        number
+        age
+        country
+        appearences
+        goals
+        minutesPlayed
+        position
+        profpic {
+          name
+          url
+        }
       }
     }
   }
