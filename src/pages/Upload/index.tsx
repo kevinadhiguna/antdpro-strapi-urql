@@ -86,6 +86,8 @@ const UploadProfpic = () => {
       });
 
       uploadForm.resetFields();
+      
+      setProfilePicture(null);
       setIsLoading(false);
     } catch (error) {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
