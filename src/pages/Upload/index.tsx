@@ -37,6 +37,8 @@ const UploadProfpic = () => {
   const [createJuventusResult, createJuventus] = useMutation(ADDJUVENTUSPLAYER);
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
+  const isClickable: boolean = profilePicture != null;
+
   const onFinish = async (values: File) => {
     console.log('Received values from Form : ', values);
 
@@ -127,7 +129,7 @@ const UploadProfpic = () => {
             }}
             onRemove={() => setProfilePicture(null)}
           >
-            <Button icon={<UploadOutlined />} loading={isLoading}>Click to upload</Button>
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
         </Form.Item>
 
@@ -137,7 +139,7 @@ const UploadProfpic = () => {
             offset: 6,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isLoading} disabled={!isClickable}>
             Set Profile Picture now
           </Button>
         </Form.Item>
