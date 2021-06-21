@@ -36,10 +36,6 @@ export const ADDJUVENTUSPLAYER = gql`
         goals
         minutesPlayed
         position
-        profpic {
-          name
-          url
-        }
       }
     }
   }
