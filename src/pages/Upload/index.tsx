@@ -32,12 +32,15 @@ const UploadProfpic = () => {
   const [uploadForm] = Form.useForm();
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [createJuventusResult, createJuventus] = useMutation(ADDJUVENTUSPLAYER);
   const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
   const onFinish = async (values: File) => {
     console.log('Received values from Form : ', values);
+
+    setIsLoading(true);
 
     let refId;
 
@@ -58,6 +61,8 @@ const UploadProfpic = () => {
         text: 'Error occured during record creation',
       });
 
+      setIsLoading(false);
+
       return;
     }
 
@@ -77,6 +82,9 @@ const UploadProfpic = () => {
         title: 'Successfully Uploaded 🎉',
         text: 'Congrats!',
       });
+
+      uploadForm.resetFields();
+      setIsLoading(false);
     } catch (error) {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
         refId,
@@ -90,6 +98,8 @@ const UploadProfpic = () => {
         title: 'Oops.. something went wrong',
         text: 'Please try again later',
       });
+
+      setIsLoading(false);
     }
   };
 
@@ -117,7 +127,7 @@ const UploadProfpic = () => {
             }}
             onRemove={() => setProfilePicture(null)}
           >
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
+            <Button icon={<UploadOutlined />} loading={isLoading}>Click to upload</Button>
           </Upload>
         </Form.Item>
 
