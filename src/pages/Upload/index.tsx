@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Button, Upload } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { FileImageOutlined, UploadOutlined } from '@ant-design/icons';
 
 import { useMutation } from 'urql';
 import { ADDJUVENTUSPLAYER, UPLOADPROFPIC } from '@/graphql/mutation';
@@ -139,7 +139,13 @@ const UploadProfpic = () => {
             offset: 6,
           }}
         >
-          <Button type="primary" htmlType="submit" loading={isLoading} disabled={!isClickable}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            icon={<FileImageOutlined />}
+            loading={isLoading}
+            disabled={!isClickable}
+          >
             Set Profile Picture now
           </Button>
         </Form.Item>
