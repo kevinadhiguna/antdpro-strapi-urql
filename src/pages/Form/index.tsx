@@ -1,170 +1,173 @@
-import { useState } from 'react';
-import ProForm, {
-  StepsForm,
-  ProFormText,
-  ProFormDatePicker,
-  ProFormSelect,
-  ProFormTextArea,
-  ProFormCheckbox,
-  ProFormDateRangePicker,
-  ProFormDependency,
-} from '@ant-design/pro-form';
-import ProCard from '@ant-design/pro-card';
-import { Button, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Upload } from 'antd';
 
-import DevelopmentAlert from '@/components/DevelopmentAlert';
-
-const waitTime = (time: number = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
+const AddPlayerFormLayout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 8,
+  },
 };
+/* eslint-disable no-template-curly-in-string */
 
-export default () => {
-  const [loading, setLoading] = useState(false);
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!',
+    goals: '${label} is not a valid goal number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+};
+/* eslint-enable no-template-curly-in-string */
+
+const AddPlayer: React.FC = () => {
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+
+    if (Array.isArray(e)) {
+      return e;
+    }
+
+    return e && e.fileList;
+  };
+
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
+
   return (
-    <>
-      <DevelopmentAlert />
-      <ProCard>
-        <StepsForm
-          onFinish={async () => {
-            setLoading(true);
-            await waitTime(1000);
-            message.success('提交成功');
-            setLoading(false);
+    <Form
+      {...AddPlayerFormLayout}
+      name="addPlayer"
+      onFinish={onFinish}
+      validateMessages={validateMessages}
+    >
+      <Form.Item
+        name="name"
+        label="Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="number"
+        label="Number"
+        rules={[
+          {
+            required: true,
+            type: 'number',
+            min: 0,
+            max: 99,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name="age"
+        label="Age"
+        rules={[
+          {
+            required: true,
+            type: 'number',
+            min: 0,
+            max: 99,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+      <Form.Item name="country" label="Country">
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="appearences"
+        label="Appearence(s)"
+        rules={[
+          {
+            required: true,
+            type: 'number',
+            min: 0,
+            max: 1000,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name="goals"
+        label="Goal(s)"
+        rules={[
+          {
+            required: true,
+            type: 'number',
+            min: 0,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name="minutesPlayed"
+        label="Minutes Played"
+        rules={[
+          {
+            required: true,
+            type: 'number',
+            min: 0,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+      <Form.Item
+        name="position"
+        label="Position"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="profpic"
+        label="Profile Picture"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        extra="Please upload player's picture"
+        required={true}
+      >
+        <Upload
+          name="profilePicture"
+          listType="picture"
+          accept="image/png, image/jpeg"
+          maxCount={1}
+          // Use 'beforeUpload' function instead of 'onChange' function as 'onChange' function does not allow to upload a file
+          beforeUpload={(e) => {
+            return false;
           }}
-          submitter={{
-            render: ({ form, onSubmit, step, onPre }) => {
-              return [
-                <Button
-                  key="rest"
-                  onClick={() => {
-                    form?.resetFields();
-                  }}
-                >
-                  Reset
-                </Button>,
-                step > 0 && (
-                  <Button
-                    key="pre"
-                    onClick={() => {
-                      onPre?.();
-                    }}
-                  >
-                    Back
-                  </Button>
-                ),
-                <Button
-                  key="next"
-                  loading={loading}
-                  type="primary"
-                  onClick={() => {
-                    onSubmit?.();
-                  }}
-                >
-                  Next
-                </Button>,
-              ];
-            },
-          }}
-          formProps={{
-            validateMessages: {
-              required: '此项为必填项',
-            },
-          }}
+          onRemove={() => {}}
         >
-          <StepsForm.StepForm
-            name="base"
-            title="创建实验"
-            onFinish={async () => {
-              setLoading(true);
-              await waitTime(2000);
-              setLoading(false);
-              return true;
-            }}
-          >
-            <ProFormText
-              name="name"
-              label="实验名称"
-              width="md"
-              tooltip="最长为 24 位，用于标定的唯一 id"
-              placeholder="请输入名称"
-              rules={[{ required: true }]}
-            />
-            <ProFormDatePicker name="date" label="日期" />
-            <ProFormDateRangePicker name="dateTime" label="时间区间" />
-            <ProFormTextArea name="remark" label="备注" width="lg" placeholder="请输入备注" />
-          </StepsForm.StepForm>
-          <StepsForm.StepForm name="checkbox" title="设置参数">
-            <ProFormCheckbox.Group
-              name="checkbox"
-              label="迁移类型"
-              width="lg"
-              options={['结构迁移', '全量迁移', '增量迁移', '全量校验']}
-            />
-            <ProForm.Group>
-              <ProFormText name="dbName" label="业务 DB 用户名" />
-              <ProFormDatePicker name="datetime" label="记录保存时间" width="sm" />
-            </ProForm.Group>
-            <ProFormDependency name={['dbName']}>
-              {({ dbName }) => {
-                return (
-                  <ProFormCheckbox.Group
-                    name="checkbox"
-                    label="迁移类型"
-                    options={dbName ? ['完整 LOB', '不同步 LOB', '受限制 LOB'] : ['完整 LOB']}
-                  />
-                );
-              }}
-            </ProFormDependency>
-          </StepsForm.StepForm>
-          <StepsForm.StepForm name="time" title="发布实验">
-            <ProFormCheckbox.Group
-              name="checkbox"
-              label="部署单元"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              options={['部署单元1', '部署单元2', '部署单元3']}
-            />
-            <ProFormSelect
-              label="部署分组策略"
-              name="remark"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              initialValue="1"
-              width="md"
-              options={[
-                {
-                  value: '1',
-                  label: '策略一',
-                },
-                { value: '2', label: '策略二' },
-              ]}
-            />
-            <ProFormSelect
-              label="Pod 调度策略"
-              name="remark2"
-              initialValue="2"
-              width="md"
-              options={[
-                {
-                  value: '1',
-                  label: '策略一',
-                },
-                { value: '2', label: '策略二' },
-              ]}
-            />
-          </StepsForm.StepForm>
-        </StepsForm>
-      </ProCard>
-    </>
+          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+        </Upload>
+      </Form.Item>
+      <Form.Item wrapperCol={{ ...AddPlayerFormLayout.wrapperCol, offset: 8 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
+
+export default AddPlayer;
