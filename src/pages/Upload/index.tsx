@@ -29,6 +29,8 @@ const uploadedFile = (e: any) => {
 };
 
 const UploadProfpic = () => {
+  const [uploadForm] = Form.useForm();
+
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
   const [createJuventusResult, createJuventus] = useMutation(ADDJUVENTUSPLAYER);
@@ -64,32 +66,17 @@ const UploadProfpic = () => {
 
     try {
       await uploadProfpic({
-        variables: {
-          refId,
-          ref,
-          field,
-          file: profilePicture,
-        },
+        refId,
+        ref,
+        field,
+        file: profilePicture,
       });
 
-      console.info('refId : ', refId);
-      console.info('ref : ', ref);
-      console.info('field : ', field);
-      console.info('file : ', profilePicture);
-
-      if (uploadProfpicResult.data !== undefined) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Successfully Uploaded 🎉',
-          text: 'Congrats!',
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops.. something went wrong',
-          text: 'Please try again later',
-        });
-      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Successfully Uploaded 🎉',
+        text: 'Congrats!',
+      });
     } catch (error) {
       console.error('Error during uploading pictures : ', error, ' variables : ', {
         refId,
@@ -100,11 +87,9 @@ const UploadProfpic = () => {
 
       Swal.fire({
         icon: 'error',
-        title: 'Please input required pictures!',
-        text: 'Error occured during uploading pictures',
+        title: 'Oops.. something went wrong',
+        text: 'Please try again later',
       });
-
-      return;
     }
   };
 
@@ -112,7 +97,7 @@ const UploadProfpic = () => {
     <>
       <DevelopmentAlert />
       <h1>Upload page</h1>
-      <Form name="validate_other" {...formItemLayout} onFinish={onFinish}>
+      <Form name="upload" form={uploadForm} {...formItemLayout} onFinish={onFinish}>
         <Form.Item
           name="upload"
           label="Profile Picture"
