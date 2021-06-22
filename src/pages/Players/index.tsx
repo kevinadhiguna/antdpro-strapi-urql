@@ -21,7 +21,7 @@ export type TableListItem = {
   position: string;
 };
 
-const Players = () => {
+const Players: React.FC = () => {
   const [isModalVisible, setisModalVisible] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [modalContext, setModalContext] = useState<string | null>('This is a modal text');

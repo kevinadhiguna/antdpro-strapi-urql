@@ -28,7 +28,7 @@ const uploadedFile = (e: any) => {
   return e && e.fileList;
 };
 
-const UploadProfpic = () => {
+const UploadProfpic: React.FC = () => {
   const [uploadForm] = Form.useForm();
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
