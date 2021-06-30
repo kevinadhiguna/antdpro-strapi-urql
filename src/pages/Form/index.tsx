@@ -58,8 +58,8 @@ const AddPlayer: React.FC = () => {
     profpic != null;
 
   // useMutations hooks to add a player and upload player's profile picture
-  const [addJuventusPlayerResult, addJuventusPlayer] = useMutation(ADDJUVENTUSPLAYER);
-  const [uploadProfpicResult, uploadProfpic] = useMutation(UPLOADPROFPIC);
+  const [, addJuventusPlayer] = useMutation(ADDJUVENTUSPLAYER);
+  const [, uploadProfpic] = useMutation(UPLOADPROFPIC);
 
   const normFile = (e: any) => {
     console.log('Upload event:', e);
