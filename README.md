@@ -31,7 +31,7 @@ yarn install
 
 ## Prepare Application Configuration
 
-Copy `appConfig.dev.json` to create `appConfig.json` (based on [the Twelve-Factor App - Config](https://12factor.net/config)) :
+Copy `appConfig.dev.json` to create `appConfig.json`:
 
 ```bash
 cp src/appConfig.dev.json ~/antdpro-urql-strapi/src/appConfig.json
