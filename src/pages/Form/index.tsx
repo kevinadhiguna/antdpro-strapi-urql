@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Form, Input, InputNumber, Button, Upload, message } from 'antd';
+import { Form, Input, InputNumber, Button, Upload, message, Select } from 'antd';
 import { useMutation } from 'urql';
 
 import { ADDJUVENTUSPLAYER, UPLOADPROFPIC } from '@/graphql/mutation';
@@ -28,6 +28,8 @@ const validateMessages = {
   },
 };
 /* eslint-enable no-template-curly-in-string */
+
+const { Option } = Select;
 
 const AddPlayer: React.FC = () => {
   // Call a form method
@@ -155,6 +157,22 @@ const AddPlayer: React.FC = () => {
     }
   };
 
+  // To-do :
+  const onPositionChange = (value: string) => {
+    switch (value) {
+      // case 'GK':
+      //   form.setFieldsValue({ note: 'Hi, man!' });
+      //   return;
+      // case 'DF':
+      //   form.setFieldsValue({ note: 'Hi, lady!' });
+      //   return;
+      // case 'MF':
+      //   form.setFieldsValue({ note: 'Hi there!' });
+      // case 'FW':
+      //   form.setFieldsValue({ note: 'Hi there!' });
+    }
+  };
+
   return (
     <>
       <DevelopmentAlert />
@@ -256,7 +274,17 @@ const AddPlayer: React.FC = () => {
             },
           ]}
         >
-          <Input value={position} onChange={(e) => setPosition(e.target.value)} />
+          {/* <Input value={position} onChange={(e) => setPosition(e.target.value)} /> */}
+          <Select
+            placeholder="Select a option and change input text above"
+            onChange={onPositionChange}
+            allowClear
+          >
+            <Option value="GK">GK</Option>
+            <Option value="DF">DF</Option>
+            <Option value="MF">MF</Option>
+            <Option value="FW">FW</Option>
+          </Select>
         </Form.Item>
         <Form.Item
           name="profpic"
