@@ -16,8 +16,11 @@ Ant Design Pro v5 boilerplate powered by Strapi GraphQL API and Urql GraphQL cli
   <img src="https://s3.gifyu.com/images/3k4jh3rk43j5h43kjnr.png" alt="Ant Design Pro  x Strapi GraphQL x URQL" border="0" />
 </a>
 
-<br/><br />
+<br /><br />
+
 **🚧 Currently still in development...**
+
+<br />
 
 ## Environment Prepare
 
@@ -31,6 +34,8 @@ or
 ```bash
 yarn install
 ```
+
+<br />
 
 ## Prepare Application Configuration
 
@@ -49,6 +54,8 @@ This allows you to separate application configuration on client-side based on th
 - `appConfig.development.local`, `appConfig.test.local.json`, `appConfig.prod.local.json`: Local overrides of environment-specific settings.
 
 Reference : [Create React App - Adding Custom Environment Variables](https://create-react-app.dev/docs/adding-custom-environment-variables/#what-other-env-files-can-be-used)
+
+<br />
 
 ## Available Scripts
 
@@ -86,9 +93,18 @@ yarn lint:fix
 yarn test
 ```
 
+<br />
+
+## To-do :
+- [ ] Fix login issue ([#1](https://github.com/kevinadhiguna/antdpro-strapi-urql/issues/1))
+
+<br />
+
 ## 📦 Looking for Ant Design Pro with Apollo GraphQL client ?
 
 Here is the repo you might be looking for : [https://github.com/kevinadhiguna/antdpro-strapi-auth](https://github.com/kevinadhiguna/antdpro-strapi-auth)
+
+<br />
 
 ## 🔎 Looking for the Server-side ?
 
