@@ -110,4 +110,6 @@ Here is the repo you might be looking for : [https://github.com/kevinadhiguna/an
 
 Here is the Strapi app that you can use with this project : [https://github.com/kevinadhiguna/strapi-dockerize](https://github.com/kevinadhiguna/strapi-dockerize)
 
+<br />
+
 ![Hello !](https://api.visitorbadge.io/api/VisitorHit?user=kevinadhiguna&repo=antdpro-strapi-urql&label=thanks%20for%20dropping%20in%20!&labelColor=%23000000&countColor=%23FFFFFF)
